@@ -7,6 +7,7 @@ import pro.sky.java.course2.homework25.Employee;
 import pro.sky.java.course2.homework25.exception.EmployeeAlreadyAddedException;
 import pro.sky.java.course2.homework25.exception.EmployeeNotFoundException;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> printEmployee() {
+    public Collection<Employee> printEmployee() {
         return employeeService.printEmployee();
     }
     @ExceptionHandler
