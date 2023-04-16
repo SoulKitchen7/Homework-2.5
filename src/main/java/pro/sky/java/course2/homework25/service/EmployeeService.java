@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface EmployeeService  {
 
-    Employee addPerson(String firstName, String lastName);
+    Employee addPerson(String firstName, String lastName, Integer department, Integer salary);
+
     Employee removePerson(String firstName, String lastName);
     Employee findPerson(String firstName, String lastName);
 
