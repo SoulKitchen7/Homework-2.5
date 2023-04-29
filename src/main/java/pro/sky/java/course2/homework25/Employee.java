@@ -1,6 +1,10 @@
 package pro.sky.java.course2.homework25;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Employee {
     private String firstName;
@@ -12,8 +16,8 @@ public class Employee {
 
     public Employee(String firstName, String lastName, Integer department, Integer salary) {
         id = ++ counter;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = capitalize(firstName.toLowerCase());
+        this.lastName = capitalize(lastName.toLowerCase());
         this.departmentId = department;
         this.salary = salary;
     }
