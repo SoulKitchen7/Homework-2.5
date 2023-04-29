@@ -8,10 +8,8 @@ import pro.sky.java.course2.homework25.exception.EmployeeNotFoundException;
 import pro.sky.java.course2.homework25.exception.InvalidInputException;
 
 import java.util.*;
-
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-
     private final Map<String, Employee> employeeMap;
     private Integer department;
     private Integer salary;
