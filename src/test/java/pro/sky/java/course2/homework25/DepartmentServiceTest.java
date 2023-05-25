@@ -92,6 +92,8 @@ public class DepartmentServiceTest {
 
         when(employeeService.printEmployee()).thenReturn(employees);
 
+        departmentService.allEmployeeDepartment(departmentId);
+
         assertTrue(employees.containsKey(employee.getFirstName() + employee.getLastName()));
         assertTrue(employees.containsKey(employee1.getFirstName() + employee1.getLastName()));
         assertTrue(employees.containsKey(employee2.getFirstName() + employee2.getLastName()));
@@ -111,6 +113,8 @@ public class DepartmentServiceTest {
         employees.put(employee2.getFirstName() + employee2.getLastName(), employee2);
 
         when(employeeService.printEmployee()).thenReturn(employees);
+
+        departmentService.allEmployee();
 
         assertTrue(employees.containsKey(employee.getFirstName() + employee.getLastName()));
         assertTrue(employees.containsKey(employee1.getFirstName() + employee1.getLastName()));

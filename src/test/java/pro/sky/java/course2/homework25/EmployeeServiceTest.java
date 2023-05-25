@@ -3,6 +3,7 @@ package pro.sky.java.course2.homework25;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pro.sky.java.course2.homework25.exception.EmployeeAlreadyAddedException;
+import pro.sky.java.course2.homework25.exception.EmployeeNotFoundException;
 import pro.sky.java.course2.homework25.service.EmployeeService;
 import pro.sky.java.course2.homework25.service.EmployeeServiceImpl;
 
@@ -33,8 +34,17 @@ public class EmployeeServiceTest {
     @Test
     public void shouldReturnCorrectFindEmployee() {
         Employee employee = new Employee("Ivan", "Petrov", 1, 100_000);
+        employeeService.addPerson(employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getSalary());
         Employee findEmployee = employeeService.findPerson(employee.getFirstName(), employee.getLastName());
         assertEquals(employee, findEmployee);
+    }
+
+    @Test
+    public void shouldThrowEmployeeNotFoundException() {
+        Employee employee = new Employee("Ivan", "Ivanov", 1, 100_000);
+
+        assertThrows(EmployeeNotFoundException.class,
+                () -> employeeService.findPerson(employee.getFirstName(), employee.getLastName()));
     }
 
     @Test
