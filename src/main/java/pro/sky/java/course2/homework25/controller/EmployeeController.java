@@ -37,7 +37,7 @@ public class EmployeeController {
 
     @GetMapping
     public Collection<Employee> printEmployee() {
-        return employeeService.printEmployee();
+        return (Collection<Employee>) employeeService.printEmployee();
     }
     @ExceptionHandler
     public ResponseEntity<String> handleEmployeeAlreadyAddedException(EmployeeAlreadyAddedException e) {

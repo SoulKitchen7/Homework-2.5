@@ -17,36 +17,42 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.employeeService = employeeService;
     }
 
+
     @Override
-    public Employee employeeWithMaxSalary(Integer departmentId) {
-        Collection <Employee> employees = employeeService.printEmployee();
-        return employees.stream()
-                .filter(e -> e.getDepartmentId()==departmentId)
-                .max(Comparator.comparing(Employee::getSalary))
-                .get();
+    public Integer employeeSumSalary(Integer departmentId) {
+        return employeeService.printEmployee().values().stream()
+                .filter(e -> e.getDepartmentId().equals(departmentId))
+                .mapToInt (Employee ::getSalary)
+                .sum();
+
     }
     @Override
-    public Employee employeeWithMinSalary(Integer departmentId) {
-
-        Collection <Employee> employees = employeeService.printEmployee();
-        return employees.stream()
-                .filter(e -> e.getDepartmentId()==departmentId)
-                .min(Comparator.comparing(Employee::getSalary))
-                .get();
+    public Integer employeeWithMaxSalary(Integer departmentId) {
+        return employeeService.printEmployee().values().stream()
+                .filter(e -> e.getDepartmentId().equals(departmentId))
+                .map (Employee ::getSalary)
+                .max(Integer::compareTo)
+                .orElse(null);
+    }
+    @Override
+    public Integer employeeWithMinSalary(Integer departmentId) {
+        return employeeService.printEmployee().values().stream()
+                .filter(e -> e.getDepartmentId().equals(departmentId))
+                .map (Employee ::getSalary)
+                .min(Integer::compareTo)
+                .orElse(null);
     }
 
     @Override
     public List<Employee> allEmployeeDepartment(Integer departmentId) {
-        Collection <Employee> employees = employeeService.printEmployee();
-        return employees.stream()
-                .filter(e -> e.getDepartmentId()==departmentId)
+        return employeeService.printEmployee().values().stream()
+                .filter(e -> e.getDepartmentId().equals(departmentId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Map<Integer, List<Employee>> allEmployee() {
-        Collection <Employee> employees = employeeService.printEmployee();
-        return employees.stream()
+        return employeeService.printEmployee().values().stream()
                 .collect(Collectors.groupingBy(Employee::getDepartmentId));
     }
 }

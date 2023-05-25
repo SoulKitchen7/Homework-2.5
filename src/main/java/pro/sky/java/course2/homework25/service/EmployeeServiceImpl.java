@@ -11,9 +11,6 @@ import java.util.*;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employeeMap;
-    private Integer department;
-    private Integer salary;
-    private StringUtils StingUtils;
 
     public EmployeeServiceImpl() {
         employeeMap = new HashMap<>();
@@ -22,21 +19,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addPerson(String firstName, String lastName, Integer department, Integer salary) {
         validateInput(firstName, lastName);
-        Employee employee = new Employee(firstName, lastName, department, salary);
-        if (employeeMap.containsKey(employee.getId())) {
+        String employeeKey = getEmployeeKey(firstName, lastName);
+        if (employeeMap.containsKey(employeeKey)) {
             throw new EmployeeAlreadyAddedException("");
         }
-        employeeMap.put(employee.getId().toString(), employee);
-        return employee;
+        employeeMap.put(employeeKey, new Employee(firstName, lastName, department, salary));
+        return employeeMap.get(employeeKey);
     }
 
     @Override
     public Employee removePerson(String firstName, String lastName) {
         validateInput(firstName, lastName);
-        Employee employee = new Employee(firstName, lastName, department, salary);
-        if (employeeMap.containsKey(employee.getId())) {
-            employeeMap.remove(employee.getId());
-            return employee;
+        String employeeKey = getEmployeeKey(firstName, lastName);
+        if (employeeMap.containsKey(employeeKey)) {
+            employeeMap.remove(employeeKey);
+            return employeeMap.get(employeeKey);
         }
         throw new EmployeeNotFoundException("");
     }
@@ -44,19 +41,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findPerson(String firstName, String lastName) {
         validateInput(firstName, lastName);
-        Employee employee = new Employee(firstName, lastName, department, salary);
-        if (employeeMap.containsKey(employee.getId())) {
-            return employeeMap.get(employee.getId());
+        String employeeKey = getEmployeeKey(firstName, lastName);
+        if (employeeMap.containsKey(employeeKey)) {
+            return employeeMap.get(employeeKey);
         }
         throw new EmployeeNotFoundException("");
     }
     @Override
-    public Collection<Employee> printEmployee() {
-        return Collections.unmodifiableCollection(employeeMap.values());
+    public Map <String, Employee> printEmployee() {
+        return printEmployee();
     }
 
     private void validateInput(String firstName, String lastName) {
 
         if (!(StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)));
+    }
+
+    private String getEmployeeKey(String firstName, String lastName) {
+        return firstName + lastName;
     }
 }
